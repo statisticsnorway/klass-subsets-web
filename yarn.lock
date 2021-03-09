@@ -1156,10 +1156,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@beam-australia/react-env@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@beam-australia/react-env/-/react-env-2.1.2.tgz#12581373fcb20f68ac206cd8317a74261a9dde0c"
-  integrity sha512-gXcCGGGb2oRM/oeqT861JXsSTJjOxGTBMkj7J5ujEBb6Vmv5I108NcALPYYdGdzFCV6ebdVP+E5k0W1xAbzA7w==
+"@beam-australia/react-env@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@beam-australia/react-env/-/react-env-3.0.8.tgz#28fd3fa8c8c7f2e68b5f9f22f6a23193e2923bbd"
+  integrity sha512-BZWKtdwiOVvG/66u/uzmkrfZWmA37zsBYwBGBVGfn08YbcrM9VFPlwcpx5p/BQmz/yQ2/zVDBvpu4J+aXT5NWg==
   dependencies:
     cross-spawn "^6.0.5"
     dotenv "^8.0.0"
@@ -9310,15 +9310,14 @@ react-dev-utils@^11.0.3:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-dom@^16.13.0:
-  version "16.14.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
-  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
+react-dom@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.1.tgz#1de2560474ec9f0e334285662ede52dbc5426fc6"
+  integrity sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.19.1"
+    scheduler "^0.20.1"
 
 react-error-overlay@^6.0.9:
   version "6.0.9"
@@ -10017,6 +10016,14 @@ scheduler@^0.19.1:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
   integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.20.1:
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.1.tgz#da0b907e24026b01181ecbc75efdc7f27b5a000c"
+  integrity sha512-LKTe+2xNJBNxu/QhHvDR14wUXHRQbVY5ZOYpOGWRzhydZUqrLb2JBvLPY7cAqFmqrWuDED0Mjk7013SZiOz6Bw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -10801,10 +10808,10 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swr@^0.4.0:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.4.2.tgz#4a9ed5e9948088af145c79d716d294cb99712a29"
-  integrity sha512-SKGxcAfyijj/lE5ja5zVMDqJNudASH3WZPRUakDVOePTM18FnsXgugndjl9BSRwj+jokFCulMDe7F2pQL+VhEw==
+swr@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.0.tgz#08648a752230a034cab7bb307c0b89af6f0efbba"
+  integrity sha512-zybQScVRZcEfZ6wXJJXvHrbooLs/XepV5Zoaz7o6esheDiQotEd0y56AwNJ2QBiPo2G/AbdhIC2Dm0csYpJrJQ==
   dependencies:
     dequal "2.0.2"
 
