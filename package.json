@@ -42,7 +42,8 @@
     "build": "react-scripts build && react-env --dest ./build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --coverage --ci --testResultsProcessor=jest-junit-reporter",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "react-scripts test --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,17 +61,32 @@
     ]
   },
   "devDependencies": {
-    "@beam-australia/react-env": "^2.1.2",
+    "@beam-australia/react-env": "^3.0.8",
     "jest-junit-reporter": "^1.1.0"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/node_modules/"
+      "!<rootDir>/node_modules/",
+      "!src/index.js",
+      "!src/**/index.js",
+      "!src/images/**",
+      "!src/internationalization/**",
+      "!src/__tests__/test-data/**",
+      "!src/components/**"
     ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 4,
+        "functions": 4,
+        "lines": 4,
+        "statements": 4
+      }
+    },
     "coverageReporters": [
-      "text",
-      "cobertura"
+      "cobertura",
+      "lcov",
+      "text"
     ]
   }
 }

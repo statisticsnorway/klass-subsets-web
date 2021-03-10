@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { eu, orderByValidFromAsc } from 'utils';
-import { TitledBlock } from 'components';
+import { eu } from 'utils';
 
 export const HtmlView = ({
     subset: {

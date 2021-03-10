@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Version, Switcher } from 'views';
 import { CheckboxGroup } from '@statisticsnorway/ssb-component-library';
-import { orderByValidFromDesc, useQuery } from 'utils';
+import { useQuery } from 'utils';
 import { Help, Title } from 'components';
 import { useHistory, useParams } from 'react-router-dom';
 

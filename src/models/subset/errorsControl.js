@@ -20,17 +20,17 @@ export const errorsControl = (state = {}) => ({
             : ['At least one name is required'];
     },
 
-    validateValidFrom() {
-        return !state.validFrom
-            ? ['A valid from date is required']
-            : !state.isInAcceptablePeriod(state._validFrom)
-                ? [`Only dates between ${
-                    eu(acceptablePeriod.from)
-                    } and ${
-                    eu(acceptablePeriod.until)
-                    } are acceptable`]
-                : [];
-    },
+    // validateValidFrom() {
+    //     return !state.validFrom
+    //         ? ['A valid from date is required']
+    //         : !state.isInAcceptablePeriod(state._validFrom)
+    //             ? [`Only dates between ${
+    //                 eu(acceptablePeriod.from)
+    //                 } and ${
+    //                 eu(acceptablePeriod.until)
+    //                 } are acceptable`]
+    //             : [];
+    // },
 
     validateValidUntil() {
         return !state._validUntil
@@ -59,9 +59,9 @@ export const errorsControl = (state = {}) => ({
         return this.validatePeriod(state.versionValidFrom, state.versionValidUntil);
     },
 
-    validateSubsetPeriod() {
-        return this.validatePeriod(state.validFrom, state.validUntil);
-    },
+    // validateSubsetPeriod() {
+    //     return this.validatePeriod(state.validFrom, state.validUntil);
+    // },
 
     validateVersionValidFrom() {
         //console.debug('validateVersionValidFrom');
@@ -83,20 +83,20 @@ export const errorsControl = (state = {}) => ({
                             : [];
     },
 
-    validateVersionValidUntil() {
-        return !state._versionValidUntil
-        || state.isInAcceptablePeriod(state._versionValidUntil)
-            ? []
-            : [`Only dates between ${
-                eu(acceptablePeriod.from)
-                } and ${
-                eu(acceptablePeriod.until)
-                } are acceptable`];
-    },
+    // validateVersionValidUntil() {
+    //     return !state._versionValidUntil
+    //     || state.isInAcceptablePeriod(state._versionValidUntil)
+    //         ? []
+    //         : [`Only dates between ${
+    //             eu(acceptablePeriod.from)
+    //             } and ${
+    //             eu(acceptablePeriod.until)
+    //             } are acceptable`];
+    // },
 
-    validateOwningSection() {
-        return state.owningSection?.length > 0 ? [] : ['Owner is required'];
-    },
+    // validateOwningSection() {
+    //     return state.owningSection?.length > 0 ? [] : ['Owner is required'];
+    // },
 
     validateCodes() {
         return state.codes?.length > 0 ? [] : ['At least one code is required'];

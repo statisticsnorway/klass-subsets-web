@@ -5,103 +5,131 @@ trigger:
     include:
       - 'master'
 
+pr:
+  branches:
+    include:
+      - master
+
 pool:
   vmImage: 'ubuntu-latest'
-
-variables:
-  - group: Hemmeligheter
-  - name: fullSha
-    value: '$(Build.SourceVersion)'
-  - name: imageName
-    value: 'eu.gcr.io/prod-bip/ssb/klass/subsets-client'
-  - name: repoName
-    value: 'prod-bip/ssb/klass/subsets-client'
-
-parameters:
-  - name: 'appName'
-    default: 'subsets-client'
-  - name: 'imageTag'
-    default: '$(Build.SourceVersion)'
-  - name: 'gcrSpace'
-    default: 'eu.gcr.io'
-  - name: 'gcrName'
-    default: 'prod-bip/ssb/klass'
 
 resources:
   repositories:
     - repository: templates
       type: github
       name: statisticsnorway/azure-pipelines-templates
-      ref: refs/tags/1.1.10
-      endpoint: statisticsnorway
+      ref: refs/tags/1.1.17
+#      ref: react-sonarqube-parameter
+      endpoint: statisticsnorway (2)
+
+
+variables:
+  - group: Hemmeligheter
+  - name: 'appName'
+    value: 'subset-client'
+  - name: 'namespace'
+    value: 'klass'
+  - name: 'imageTag'
+    value: '$(Build.SourceBranchName)-$(Build.SourceVersion)'
+  - name: sonarQube
+    value: 'bipSonarQube-Klass'
+
+
 
 jobs:
-  - job: 'codeCheck'
-    displayName: 'Test, analyze, and build image'
-    steps:
-      - script: |
-          npm install
-          npm audit fix --force
-          CI=true npm run test:ci
-          CI=false npm run build
-        # Treating warnings as errors because process.env.CI = true.
-        displayName: 'Tests med coverage'
-        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-      - script: |
-          npm install --only=prod
-          npm audit fix --force
-          CI=true npm test
-          CI=false npm run build
-        displayName: 'Dev build'
-        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-      - script: |
-          CI=true npm run build
-        displayName: 'Prod build'
-        condition: and(false, and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v')))
-      - task: PublishTestResults@2
-        displayName: "Publish test results"
-        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-        inputs:
-          testResultsFormat: "JUnit"
-          testResultsFiles: "$(Build.SourcesDirectory)/test-report.xml"
-      - task: PublishCodeCoverageResults@1
-        displayName: "Publish coverage results"
-        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-        inputs:
-          codeCoverageTool: Cobertura
-          summaryFileLocation: '$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml'
-          reportDirectory: '$(Build.SourcesDirectory)/src'
-  - job: 'sonarQube'
-    displayName: 'Analyze the code quality'
-    # Task condition: We have community edition of SonarQube which only scans master-branch so
-    # it makes no sense running this tag when branch is other than master
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    steps:
-      - task: SonarQubePrepare@4
-        inputs:
-          SonarQube: 'bipSonarQube-Klass'
-          scannerMode: 'CLI'
-          configMode: 'manual'
-          cliProjectKey: $(Build.DefinitionName)
-          cliProjectName: $(Build.Repository.Name)
-          cliSources: '.'
-      - task: SonarQubeAnalyze@4
-      - task: SonarQubePublish@4
-  - job: 'deployStaging'
-    displayName: 'Build Docker image and publish to GCR'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    steps:
-      - script: |
-          npm install --only=prod
-          npm audit fix --force
-          CI=true npm test
-          CI=false npm run build
-        displayName: 'Dev build'
-      - template: 'docker/docker-build-image-and-push-to-gcr.yml@templates'
-        parameters:
-          imageName: $(imageName)
-          repoName: $(repoName)
-  - template: 'docker/docker-tag-for-production.yml@templates'
+  - template: javascript/react-complete-build.yml@templates
     parameters:
-      tagToTag: 'master-$(fullSha)'
-      gcrImageName: $(imageName)
+      appName: $(appName)
+      imageTag: $(imageTag)
+      namespace: $(namespace)
+      sonarQube: $(sonarQube)
+
+#variables:
+#  - group: Hemmeligheter
+#  - name: fullSha
+#    value: '$(Build.SourceVersion)'
+#  - name: imageName
+#    value: 'eu.gcr.io/prod-bip/ssb/klass/subsets-client'
+#  - name: repoName
+#    value: 'prod-bip/ssb/klass/subsets-client'
+
+#parameters:
+#  - name: 'appName'
+#    default: 'subsets-client'
+#  - name: 'imageTag'
+#    default: '$(Build.SourceVersion)'
+#  - name: 'gcrSpace'
+#    default: 'eu.gcr.io'
+#  - name: 'gcrName'
+#    default: 'prod-bip/ssb/klass'
+
+#jobs:
+#  - job: 'codeCheck'
+#    displayName: 'Test, analyze, and build image'
+#    steps:
+#      - script: |
+#          npm install
+#          npm audit fix --force
+#          CI=true npm run test:ci
+#          CI=false npm run build
+#        # Treating warnings as errors because process.env.CI = true.
+#        displayName: 'Tests med coverage'
+#        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+#      - script: |
+#          npm install --only=prod
+#          npm audit fix --force
+#          CI=true npm test
+#          CI=false npm run build
+#        displayName: 'Dev build'
+#        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+#      - script: |
+#          CI=true npm run build
+#        displayName: 'Prod build'
+#        condition: and(false, and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v')))
+#      - task: PublishTestResults@2
+#        displayName: "Publish test results"
+#        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+#        inputs:
+#          testResultsFormat: "JUnit"
+#          testResultsFiles: "$(Build.SourcesDirectory)/test-report.xml"
+#      - task: PublishCodeCoverageResults@1
+#        displayName: "Publish coverage results"
+#        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+#        inputs:
+#          codeCoverageTool: Cobertura
+#          summaryFileLocation: '$(Build.SourcesDirectory)/coverage/cobertura-coverage.xml'
+#          reportDirectory: '$(Build.SourcesDirectory)/src'
+#  - job: 'sonarQube'
+#    displayName: 'Analyze the code quality'
+#    # Task condition: We have community edition of SonarQube which only scans master-branch so
+#    # it makes no sense running this tag when branch is other than master
+#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#    steps:
+#      - task: SonarQubePrepare@4
+#        inputs:
+#          SonarQube: 'bipSonarQube-Klass'
+#          scannerMode: 'CLI'
+#          configMode: 'manual'
+#          cliProjectKey: $(Build.DefinitionName)
+#          cliProjectName: $(Build.Repository.Name)
+#          cliSources: '.'
+#      - task: SonarQubeAnalyze@4
+#      - task: SonarQubePublish@4
+#  - job: 'deployStaging'
+#    displayName: 'Build Docker image and publish to GCR'
+#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#    steps:
+#      - script: |
+#          npm install --only=prod
+#          npm audit fix --force
+#          CI=true npm test
+#          CI=false npm run build
+#        displayName: 'Dev build'
+#      - template: 'docker/docker-build-image-and-push-to-gcr.yml@templates'
+#        parameters:
+#          imageName: $(imageName)
+#          repoName: $(repoName)
+#  - template: 'docker/docker-tag-for-production.yml@templates'
+#    parameters:
+#      tagToTag: 'master-$(fullSha)'
+#      gcrImageName: $(imageName)

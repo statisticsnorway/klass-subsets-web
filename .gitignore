@@ -96,4 +96,5 @@ typings/
 9.0.0
 dist/
 test-report.xml
-
+/public/__ENV.js
+/public/env.js

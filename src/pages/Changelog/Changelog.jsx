@@ -2,7 +2,7 @@ import React from 'react';
 import './changelog-container.css';
 import { useTranslation } from 'react-i18next';
 //import { Edit, HelpCircle, MessageSquare, Repeat, RefreshCw, Sliders } from 'react-feather';
-import { AlertButton, GlobeButton, SaveButton, Spinner, UploadButton } from 'components';
+import { AlertButton, GlobeButton, SaveButton, UploadButton } from 'components';
 
 export const Changelog = () => {
    const { t } = useTranslation();

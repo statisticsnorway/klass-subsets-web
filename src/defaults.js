@@ -33,14 +33,13 @@ export const subsetDraft = {
     maxLengthVersionRationale: 2500
 };
 
-// TODO: defaults for subset description in different languages
-
-export const STATUS_ENUM = [
-    'DEPRECATED',
-    'DRAFT',
-    'INTERNAL',
-    'OPEN'
-];
+// // TODO: defaults for subset description in different languages
+// export const STATUS_ENUM = [
+//     'DEPRECATED',
+//     'DRAFT',
+//     'INTERNAL',
+//     'OPEN'
+// ];
 
 export const acceptablePeriod = {
     from: new Date('1800-01-01').toJSON(),

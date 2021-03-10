@@ -66,7 +66,7 @@ export const URL = {
         const classificationPattern = /https:\/\/data.ssb.no\/api\/klass\/v1\/classifications\/[0-9]+/i;
 
         if (classificationPattern.test(url)) {
-            const [ protocol,, domain, api, klass, version, service, id ] = url.split('/');
+            const [ , , , , , , service, id ] = url.split('/');
 
             return {
                 service,
@@ -136,7 +136,7 @@ export function useGet(url = null) {
         return () => {
             _mounted = false;
         };
-        
+
     }, [ path ]);
 
     return [ data, isLoading, error, setPath ];

@@ -1,4 +1,5 @@
 import { Subset } from './Subset.prototype';
+import { describe, it } from '@jest/globals'
 
 describe('Subset prototype: default values', () => {
     it('should by default set ID to empty string', () => {

@@ -60,7 +60,7 @@ export const Step6Publish = () => {
             }
         }
 
-    }, [ post, update ]);
+    }, [ post, update ]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (post || update) {
@@ -82,7 +82,7 @@ export const Step6Publish = () => {
                 }
             });
         }
-    }, [ dispatch, postVersion, updateVersion ]);
+    }, [ dispatch, postVersion, updateVersion, versionId ]);
 
     return (
         <div style={{ minHeight: '350px', textAlign: 'center', margin: 'auto', width: '100%' }}>

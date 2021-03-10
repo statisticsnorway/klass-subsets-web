@@ -1,5 +1,5 @@
-import {toId, replaceRef} from './strings';
-
+import { toId } from './strings';
+import { describe, it } from '@jest/globals'
 describe('Utils: strings', () => {
     it('should lower case the string', () => {
         expect(toId('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).toEqual('abcdefghijklmnopqrstuvwxyz');

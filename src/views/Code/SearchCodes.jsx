@@ -1,7 +1,7 @@
 import React from 'react';
 import { Code } from 'views';
 import { useTranslation } from 'react-i18next';
-import { flatten, doPeriodsIntersect } from 'utils';
+import { flatten } from 'utils';
 import { Title, Datepicker } from 'components';
 
 export const SearchCodes = ({ data = [], edit = () => {} }) => {

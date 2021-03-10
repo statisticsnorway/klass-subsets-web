@@ -1,4 +1,4 @@
-import { subsetDraft, STATUS_ENUM } from 'defaults';
+import { subsetDraft } from 'defaults';
 import {
     toId, sanitize, nextDefaultName,
     orderByValidFromAsc, orderByValidFromDesc,
